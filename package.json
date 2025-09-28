@@ -19,7 +19,7 @@
     "autoprefixer": "^10.4.0",
     "framer-motion": "^10.12.16"
     ,
-    "aos": "^3.0.0",
+    "aos": "^2.3.4",
     "jspdf": "^2.5.1",
     "html2canvas": "^1.4.1",
     "@fontsource/noto-sans-kr": "^5.0.0"

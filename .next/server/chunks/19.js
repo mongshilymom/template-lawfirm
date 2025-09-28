@@ -1,0 +1,1 @@
+"use strict";exports.id=19,exports.ids=[19],exports.modules={9327:(e,t,r)=>{r.r(t),r.d(t,{default:()=>s});let s=(0,r(68570).createProxy)(String.raw`C:\Users\mongshilymom\dev\letyou\templates\template-lawfirm\components\calculators\InheritanceCalculator.tsx#default`)}};
