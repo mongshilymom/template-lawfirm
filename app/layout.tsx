@@ -1,6 +1,7 @@
 import '../app/globals.css';
-import Link from 'next/link';
 import DarkModeToggle from '../components/DarkModeToggle';
+import Navigation from '../components/ui/Navigation';
+import { FIRM_CONFIG } from '../lib/config';
 
 /**
  * Global metadata for the site.  This includes SEO friendly titles,
@@ -29,30 +30,38 @@ export const metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="ko" suppressHydrationWarning>
+      <head>
+        {/* Structured data for SEO */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              '@context': 'https://schema.org',
+              '@type': 'LegalService',
+              name: FIRM_CONFIG.name,
+              telephone: FIRM_CONFIG.phone,
+              email: FIRM_CONFIG.email,
+              address: {
+                '@type': 'PostalAddress',
+                streetAddress: FIRM_CONFIG.address,
+                addressCountry: 'KR'
+              },
+              url: FIRM_CONFIG.siteUrl
+            })
+          }}
+        />
+      </head>
       <body className="relative">
-        {/* Global header */}
-        <header className="fixed top-0 left-0 right-0 z-40 bg-white dark:bg-legend-black shadow-sm">
-          <nav className="max-w-7xl mx-auto flex items-center justify-between px-4 py-3">
-            <Link href="/" className="text-2xl font-heading text-legend-gold">Premium Law</Link>
-            <div className="hidden md:flex space-x-6">
-              <Link href="/about">소개</Link>
-              <Link href="/lawyers">구성원</Link>
-              <Link href="/practice">업무분야</Link>
-              <Link href="/cases">성공사례</Link>
-              <Link href="/news">뉴스</Link>
-              <Link href="/contact">오시는길</Link>
-              <Link href="/consultation" className="btn-primary">상담신청</Link>
-            </div>
-          </nav>
-        </header>
-        {/* Page content offset by header height */}
-        <div className="pt-16">{children}</div>
+        {/* Global navigation */}
+        <Navigation />
+        {/* Page content offset by navigation height */}
+        <div className="pt-20">{children}</div>
         {/* Global footer */}
         <footer className="mt-12 px-4 py-8 bg-legend-platinum dark:bg-gray-900 text-center">
           <p>&copy; {new Date().getFullYear()} Premium Law Firm. All rights reserved.</p>
           <p className="text-sm mt-2">
-            <Link href="/privacy" className="mr-4">개인정보처리방침</Link>
-            <Link href="/terms">이용약관</Link>
+            <a href="/privacy" className="mr-4">개인정보처리방침</a>
+            <a href="/terms">이용약관</a>
           </p>
         </footer>
         {/* Dark mode toggle positioned bottom left */}
