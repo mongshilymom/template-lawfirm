@@ -1,1 +1,0 @@
-"use strict";exports.id=120,exports.ids=[120],exports.modules={30120:(t,e,s)=>{s.r(e),s.d(e,{default:()=>o});let o=(0,s(68570).createProxy)(String.raw`C:\Users\mongshilymom\dev\letyou\templates\template-lawfirm\components\ConsultationForm.tsx#default`)}};

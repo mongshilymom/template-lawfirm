@@ -1,1 +1,0 @@
-"use strict";exports.id=852,exports.ids=[852],exports.modules={94707:(t,e,l)=>{l.r(e),l.d(e,{default:()=>r});let r=(0,l(68570).createProxy)(String.raw`C:\Users\mongshilymom\dev\letyou\templates\template-lawfirm\components\calculators\CriminalCalculator.tsx#default`)}};

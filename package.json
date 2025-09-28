@@ -19,10 +19,13 @@
     "autoprefixer": "^10.4.0",
     "framer-motion": "^10.12.16"
     ,
-    "aos": "^2.3.4",
+    "aos": "^3.0.0",
     "jspdf": "^2.5.1",
     "html2canvas": "^1.4.1",
-    "@fontsource/noto-sans-kr": "^5.0.0"
+    "@fontsource/noto-sans-kr": "^5.0.0",
+    "lucide-react": "^0.300.0",
+    "@emailjs/browser": "^3.11.0",
+    "react-intersection-observer": "^9.4.0"
   },
   "devDependencies": {
     "@types/react": "^18.0.0",
