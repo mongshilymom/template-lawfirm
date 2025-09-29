@@ -1,12 +1,16 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import { lawyers } from '../../data/lawyers';
+import { sanityFetch } from '../../lib/sanity.fetch';
+import { qLawyers } from '../../lib/sanity.queries';
+import { urlForImage } from '../../lib/sanity.image';
 
 /**
  * 변호사 프로필을 4개씩 그리드로 표시합니다.
- * data/lawyers.ts의 데이터를 사용하여 더 자세한 정보를 포함합니다.
+ * Sanity CMS의 데이터를 사용하여 동적으로 렌더링합니다.
  */
-export default function LawyersSection() {
+export default async function LawyersSection() {
+  const lawyers = await sanityFetch<any[]>(qLawyers, {}, ['lawyers'], 180);
+
   return (
     <section className="max-w-7xl mx-auto px-4 py-16">
       <div className="text-center mb-12">
@@ -17,14 +21,14 @@ export default function LawyersSection() {
       <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
         {lawyers.slice(0, 4).map((lawyer) => (
           <Link
-            key={lawyer.id}
-            href={`/lawyers/${lawyer.id}`}
+            key={lawyer._id}
+            href={`/lawyers/${lawyer.slug?.current || lawyer._id}`}
             className="group block border rounded-xl p-6 bg-white dark:bg-zinc-900 hover:shadow-xl transition-all duration-300 hover:scale-105"
           >
             {/* 변호사 사진 */}
             <div className="aspect-[4/5] relative mb-4 overflow-hidden rounded-lg">
               <Image
-                src={lawyer.image}
+                src={lawyer.image ? urlForImage(lawyer.image)?.url() || '/images/lawyers/default.jpg' : '/images/lawyers/default.jpg'}
                 alt={lawyer.name}
                 fill
                 className="object-cover group-hover:scale-110 transition-transform duration-300"
