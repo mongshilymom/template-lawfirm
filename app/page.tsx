@@ -6,6 +6,8 @@ import HeroSection from '../components/sections/HeroSection';
 import ServicesSection from '../components/sections/ServicesSection';
 import LawyersSection from '../components/sections/LawyersSection';
 
+export const revalidate = 60;
+
 export default function Home() {
   return (
     <main className="min-h-screen">

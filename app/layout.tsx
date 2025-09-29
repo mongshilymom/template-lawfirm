@@ -1,6 +1,7 @@
 ﻿import "./globals.css";
 import type { Metadata } from "next";
 import Navigation from "../components/ui/Navigation";
+import DebugBuild from "../components/DebugBuild";
 import { FIRM_CONFIG } from "../lib/config";
 
 export const metadata: Metadata = {
@@ -25,6 +26,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body>
         <Navigation />
         {children}
+        <DebugBuild />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       </body>
     </html>

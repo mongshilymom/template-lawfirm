@@ -4,6 +4,7 @@ import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { useEffect, useState } from 'react';
 import { FIRM_CONFIG } from '../../lib/config';
+import { SITE_CONFIG, formatCases, formatSuccessRate } from '../../lib/siteConfig';
 
 /**
  * The hero section introduces the firm with a fullscreen background,
@@ -16,16 +17,17 @@ export default function HeroSection() {
 
   // Simple count up animation for wins and rate.
   useEffect(() => {
+    const targetRate = Math.round(SITE_CONFIG.SUCCESS_RATE * 100);
     const winInterval = setInterval(() => {
       setWins((v) => {
         const next = v + 50;
-        return next >= 5000 ? 5000 : next;
+        return next >= SITE_CONFIG.TOTAL_CASES ? SITE_CONFIG.TOTAL_CASES : next;
       });
     }, 10);
     const rateInterval = setInterval(() => {
       setRate((v) => {
         const next = v + 1;
-        return next >= 98 ? 98 : next;
+        return next >= targetRate ? targetRate : next;
       });
     }, 40);
     return () => {
@@ -77,7 +79,7 @@ export default function HeroSection() {
           <div className="mt-8 grid grid-cols-2 gap-6">
             <div>
               <div className="text-3xl md:text-4xl font-bold">
-                {wins.toLocaleString()}+
+                {formatCases(wins)}
               </div>
               <div>누적 승소</div>
             </div>
