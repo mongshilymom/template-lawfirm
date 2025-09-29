@@ -10,15 +10,96 @@
 @import '@fontsource/noto-sans-kr/700.css';
 
 /*
- * Define CSS custom properties (design tokens) for core colours.  These
- * variables can be used throughout the site to ensure consistent
- * colouring and make it easy to update the palette in one place.
+ * Design Tokens - CSS Custom Properties
+ * Centralized color, spacing, and typography system
  */
 :root {
-  --primary: #1e40af;    /* 신뢰감 있는 블루 */
-  --secondary: #dc2626;  /* 강조용 레드 */
-  --dark: #0f172a;       /* 진한 네이비 */
-  --gold: #f59e0b;       /* 프리미엄 골드 */
+  /* Color System */
+  --primary-50: #eff6ff;
+  --primary-100: #dbeafe;
+  --primary-200: #bfdbfe;
+  --primary-300: #93c5fd;
+  --primary-400: #60a5fa;
+  --primary-500: #3b82f6;
+  --primary-600: #2563eb;
+  --primary-700: #1d4ed8;
+  --primary-800: #1e40af;
+  --primary-900: #1e3a8a;
+  --primary: var(--primary-800);
+
+  --secondary-50: #fef2f2;
+  --secondary-100: #fee2e2;
+  --secondary-200: #fecaca;
+  --secondary-300: #fca5a5;
+  --secondary-400: #f87171;
+  --secondary-500: #ef4444;
+  --secondary-600: #dc2626;
+  --secondary-700: #b91c1c;
+  --secondary-800: #991b1b;
+  --secondary-900: #7f1d1d;
+  --secondary: var(--secondary-600);
+
+  --gold-50: #fffbeb;
+  --gold-100: #fef3c7;
+  --gold-200: #fde68a;
+  --gold-300: #fcd34d;
+  --gold-400: #fbbf24;
+  --gold-500: #f59e0b;
+  --gold-600: #d97706;
+  --gold-700: #b45309;
+  --gold-800: #92400e;
+  --gold-900: #78350f;
+  --gold: var(--gold-500);
+
+  --dark-50: #f8fafc;
+  --dark-100: #f1f5f9;
+  --dark-200: #e2e8f0;
+  --dark-300: #cbd5e1;
+  --dark-400: #94a3b8;
+  --dark-500: #64748b;
+  --dark-600: #475569;
+  --dark-700: #334155;
+  --dark-800: #1e293b;
+  --dark-900: #0f172a;
+  --dark: var(--dark-900);
+
+  /* Spacing System */
+  --spacing-xs: 0.25rem;  /* 4px */
+  --spacing-sm: 0.5rem;   /* 8px */
+  --spacing-md: 1rem;     /* 16px */
+  --spacing-lg: 1.5rem;   /* 24px */
+  --spacing-xl: 2rem;     /* 32px */
+  --spacing-2xl: 3rem;    /* 48px */
+  --spacing-3xl: 4rem;    /* 64px */
+
+  /* Border Radius */
+  --radius-sm: 0.25rem;
+  --radius-md: 0.375rem;
+  --radius-lg: 0.5rem;
+  --radius-xl: 0.75rem;
+  --radius-2xl: 1rem;
+  --radius-3xl: 1.5rem;
+
+  /* Typography Scale */
+  --font-size-xs: 0.75rem;
+  --font-size-sm: 0.875rem;
+  --font-size-base: 1rem;
+  --font-size-lg: 1.125rem;
+  --font-size-xl: 1.25rem;
+  --font-size-2xl: 1.5rem;
+  --font-size-3xl: 1.875rem;
+  --font-size-4xl: 2.25rem;
+
+  /* Shadows */
+  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+  --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+
+  /* Transitions */
+  --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-normal: 300ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-slow: 500ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 /* Custom global styles */
@@ -30,8 +111,29 @@ body {
   @apply bg-white dark:bg-legend-black text-gray-900 dark:text-legend-platinum font-body;
 }
 
+/* Focus styles for accessibility */
+:focus {
+  outline: none;
+}
+
+:focus-visible {
+  @apply ring-2 ring-primary-500 ring-offset-2 ring-offset-white dark:ring-offset-dark-900;
+  outline: none;
+}
+
+/* Interactive elements */
 a {
-  @apply text-legend-crimson hover:underline;
+  @apply text-legend-crimson hover:underline transition-colors duration-200;
+}
+
+button,
+[role="button"] {
+  @apply transition-colors duration-200;
+}
+
+button:focus-visible,
+[role="button"]:focus-visible {
+  @apply ring-2 ring-primary-500 ring-offset-2 ring-offset-white dark:ring-offset-dark-900;
 }
 
 .btn-primary {
