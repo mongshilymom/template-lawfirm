@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
+import { siteConfig } from '../../lib/siteConfig';
 
 /**
  * A sticky navigation bar that appears at the top of the page.  As the user
@@ -31,7 +32,7 @@ export default function Navigation() {
       <nav className="mx-auto max-w-7xl px-4 py-3 flex items-center justify-between">
         {/* Brand */}
         <Link href="/" className="font-heading text-xl">
-          QUANTUM Legal
+          {siteConfig.name}
         </Link>
         {/* Desktop navigation */}
         <ul className="hidden md:flex items-center gap-6">
@@ -64,7 +65,7 @@ export default function Navigation() {
             <Link href="/news">뉴스/칼럼</Link>
           </li>
           <li>
-            <Link href="/calculator" className="btn-primary">
+            <Link href="/consultation" className="btn-primary">
               상담신청
             </Link>
           </li>

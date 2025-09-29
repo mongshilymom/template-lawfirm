@@ -1,53 +1,62 @@
 import '../app/globals.css';
 import DarkModeToggle from '../components/DarkModeToggle';
 import Navigation from '../components/ui/Navigation';
-import { FIRM_CONFIG } from '../lib/config';
+import { siteConfig } from '../lib/siteConfig';
 
 /**
- * Global metadata for the site.  This includes SEO friendly titles,
- * descriptions and Open Graph data used when sharing on social media.
- *
- * 변경 사항:
- * - 명칭을 "QUANTUM Legal" 브랜드로 업데이트했습니다.
- * - 상세 설명과 가격 정보를 메타데이터에 포함하여 검색엔진에서 노출될 수 있도록 했습니다.
- * - openGraph 정보를 정의하여 SNS 공유시 적절한 타이틀/설명이 표시됩니다.
- * - favicon 경로와 OG 이미지를 지정했습니다.
+ * 사이트 전역 메타데이터 설정
+ * siteConfig에서 중앙화된 SEO 데이터를 사용합니다.
  */
 export const metadata = {
-  title: 'QUANTUM Legal - 프리미엄 법무법인 템플릿',
-  description: '법무법인 홈페이지 제작 전문 | 7일 완성 | 390만원',
-  metadataBase: new URL('https://template-lawfirm.vercel.app'),
+  title: siteConfig.seo.title,
+  description: siteConfig.seo.description,
+  keywords: siteConfig.seo.keywords.join(', '),
+  metadataBase: new URL(siteConfig.siteUrl),
   openGraph: {
-    title: 'QUANTUM Legal - 프리미엄 법무법인 템플릿',
-    description: '법무법인 홈페이지 제작 전문 | 7일 완성 | 390만원',
-    url: 'https://template-lawfirm.vercel.app',
-    images: ['/og-image.jpg'],
-    type: 'website'
+    title: siteConfig.seo.title,
+    description: siteConfig.seo.description,
+    url: siteConfig.siteUrl,
+    images: [siteConfig.seo.ogImage],
+    type: 'website',
+    locale: 'ko_KR',
+    siteName: siteConfig.name
   },
-  icons: { icon: '/favicon.ico' }
+  twitter: {
+    card: 'summary_large_image',
+    title: siteConfig.seo.title,
+    description: siteConfig.seo.description,
+    images: [siteConfig.seo.ogImage]
+  },
+  icons: {
+    icon: siteConfig.seo.favicon,
+    apple: '/apple-touch-icon.png'
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
+  },
+  verification: {
+    google: process.env.GOOGLE_SITE_VERIFICATION,
+    naver: process.env.NAVER_SITE_VERIFICATION,
+  }
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="ko" suppressHydrationWarning>
       <head>
-        {/* Structured data for SEO */}
+        {/* JSON-LD 구조화 데이터 */}
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
-              '@context': 'https://schema.org',
-              '@type': 'LegalService',
-              name: FIRM_CONFIG.name,
-              telephone: FIRM_CONFIG.phone,
-              email: FIRM_CONFIG.email,
-              address: {
-                '@type': 'PostalAddress',
-                streetAddress: FIRM_CONFIG.address,
-                addressCountry: 'KR'
-              },
-              url: FIRM_CONFIG.siteUrl
-            })
+            __html: JSON.stringify(siteConfig.jsonLd)
           }}
         />
       </head>
@@ -58,10 +67,13 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <div className="pt-20">{children}</div>
         {/* Global footer */}
         <footer className="mt-12 px-4 py-8 bg-legend-platinum dark:bg-gray-900 text-center">
-          <p>&copy; {new Date().getFullYear()} Premium Law Firm. All rights reserved.</p>
+          <p>&copy; {new Date().getFullYear()} {siteConfig.name}. All rights reserved.</p>
           <p className="text-sm mt-2">
-            <a href="/privacy" className="mr-4">개인정보처리방침</a>
-            <a href="/terms">이용약관</a>
+            <a href="/privacy" className="mr-4 hover:text-legend-gold">개인정보처리방침</a>
+            <a href="/terms" className="hover:text-legend-gold">이용약관</a>
+          </p>
+          <p className="text-xs mt-2 opacity-60">
+            {siteConfig.contact.address} | TEL: {siteConfig.contact.phone} | EMAIL: {siteConfig.contact.email}
           </p>
         </footer>
         {/* Dark mode toggle positioned bottom left */}

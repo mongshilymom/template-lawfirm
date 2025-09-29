@@ -1,33 +1,77 @@
 import Image from 'next/image';
-import lawyers from '../../data/lawyers.json';
+import Link from 'next/link';
+import { lawyers } from '../../data/lawyers';
 
 /**
- * Displays a selection of lawyer profiles in a grid.  The component uses
- * the first four entries from the lawyers data file.  If an image is
- * missing for a lawyer, a placeholder will be displayed instead.
+ * 변호사 프로필을 4개씩 그리드로 표시합니다.
+ * data/lawyers.ts의 데이터를 사용하여 더 자세한 정보를 포함합니다.
  */
 export default function LawyersSection() {
   return (
     <section className="max-w-7xl mx-auto px-4 py-16">
-      <h2 className="text-3xl font-heading mb-8">구성원</h2>
-      <div className="grid sm:grid-cols-2 md:grid-cols-4 gap-6">
-        {lawyers.slice(0, 4).map((l: any, i: number) => (
-          <div
-            key={i}
-            className="border rounded-lg p-4 bg-white dark:bg-zinc-900 hover:shadow-lg transition"
+      <div className="text-center mb-12">
+        <h2 className="text-3xl md:text-4xl font-heading mb-4">전문 변호사진</h2>
+        <p className="text-lg opacity-80">각 분야의 전문성을 갖춘 경험 풍부한 변호사들</p>
+      </div>
+
+      <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        {lawyers.slice(0, 4).map((lawyer) => (
+          <Link
+            key={lawyer.id}
+            href={`/lawyers/${lawyer.id}`}
+            className="group block border rounded-xl p-6 bg-white dark:bg-zinc-900 hover:shadow-xl transition-all duration-300 hover:scale-105"
           >
-            <div className="aspect-[4/5] relative mb-3 overflow-hidden rounded">
+            {/* 변호사 사진 */}
+            <div className="aspect-[4/5] relative mb-4 overflow-hidden rounded-lg">
               <Image
-                src={l.image || '/lawyer-placeholder.png'}
-                alt={l.name}
+                src={lawyer.image}
+                alt={lawyer.name}
                 fill
-                className="object-cover"
+                className="object-cover group-hover:scale-110 transition-transform duration-300"
+                placeholder="blur"
+                blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAABAAEDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAUEAEAAAAAAAAAAAAAAAAAAAAA/8QAFQEBAQAAAAAAAAAAAAAAAAAAAAX/xAAUEQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIRAxEAPwCdABmX/9k="
               />
             </div>
-            <div className="font-semibold">{l.name}</div>
-            <div className="text-sm opacity-80">{l.title}</div>
-          </div>
+
+            {/* 변호사 정보 */}
+            <div className="text-center">
+              <h3 className="font-semibold text-lg mb-1">{lawyer.name}</h3>
+              <p className="text-sm text-legend-gold mb-2">{lawyer.title}</p>
+              <p className="text-xs opacity-70 mb-3">경력 {lawyer.experience}</p>
+
+              {/* 전문 분야 */}
+              <div className="flex flex-wrap gap-1 justify-center mb-3">
+                {lawyer.specialties.slice(0, 2).map((specialty, idx) => (
+                  <span
+                    key={idx}
+                    className="text-xs bg-gray-100 dark:bg-gray-800 px-2 py-1 rounded"
+                  >
+                    {specialty}
+                  </span>
+                ))}
+              </div>
+
+              {/* 간단 설명 */}
+              <p className="text-sm opacity-60 leading-relaxed line-clamp-2">
+                {lawyer.description}
+              </p>
+
+              <div className="mt-3 text-sm text-legend-gold group-hover:underline">
+                프로필 보기 →
+              </div>
+            </div>
+          </Link>
         ))}
+      </div>
+
+      {/* 더 보기 링크 */}
+      <div className="text-center mt-8">
+        <Link
+          href="/lawyers"
+          className="inline-block px-6 py-3 bg-legend-gold text-white rounded-lg hover:bg-legend-gold/90 transition-colors"
+        >
+          전체 변호사 보기
+        </Link>
       </div>
     </section>
   );

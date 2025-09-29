@@ -3,7 +3,7 @@
 import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { useEffect, useState } from 'react';
-import { FIRM_CONFIG } from '../../lib/config';
+import { siteConfig } from '../../lib/siteConfig';
 
 /**
  * The hero section introduces the firm with a fullscreen background,
@@ -11,25 +11,45 @@ import { FIRM_CONFIG } from '../../lib/config';
  * smoothly increment up to their target values when the component mounts.
  */
 export default function HeroSection() {
-  const [wins, setWins] = useState(0);
-  const [rate, setRate] = useState(0);
+  const [experience, setExperience] = useState(0);
+  const [cases, setCases] = useState(0);
+  const [clients, setClients] = useState(0);
+  const [successRate, setSuccessRate] = useState(0);
 
-  // Simple count up animation for wins and rate.
+  // 통계 애니메이션 (siteConfig.stats 사용)
   useEffect(() => {
-    const winInterval = setInterval(() => {
-      setWins((v) => {
-        const next = v + 50;
-        return next >= 5000 ? 5000 : next;
+    const experienceInterval = setInterval(() => {
+      setExperience((v) => {
+        const next = v + 1;
+        return next >= siteConfig.stats.experience ? siteConfig.stats.experience : next;
+      });
+    }, 80);
+
+    const casesInterval = setInterval(() => {
+      setCases((v) => {
+        const next = v + 25;
+        return next >= siteConfig.stats.cases ? siteConfig.stats.cases : next;
       });
     }, 10);
+
+    const clientsInterval = setInterval(() => {
+      setClients((v) => {
+        const next = v + 12;
+        return next >= siteConfig.stats.clients ? siteConfig.stats.clients : next;
+      });
+    }, 10);
+
     const rateInterval = setInterval(() => {
-      setRate((v) => {
+      setSuccessRate((v) => {
         const next = v + 1;
-        return next >= 98 ? 98 : next;
+        return next >= siteConfig.stats.successRate ? siteConfig.stats.successRate : next;
       });
     }, 40);
+
     return () => {
-      clearInterval(winInterval);
+      clearInterval(experienceInterval);
+      clearInterval(casesInterval);
+      clearInterval(clientsInterval);
       clearInterval(rateInterval);
     };
   }, []);
@@ -54,19 +74,19 @@ export default function HeroSection() {
             transition={{ duration: 0.6 }}
             className="font-heading text-4xl md:text-6xl leading-tight"
           >
-            {FIRM_CONFIG.name}
+            {siteConfig.name}
             <br />
-            <span className="text-legend-gold">{FIRM_CONFIG.tagline}</span>
+            <span className="text-legend-gold">{siteConfig.tagline}</span>
           </motion.h1>
           <p className="mt-4 text-lg md:text-xl opacity-90">
             기업·형사·가사·부동산 전 분야 원스톱 솔루션
           </p>
           <div className="mt-6 flex gap-3">
-            <a href={`tel:${FIRM_CONFIG.phone}`} className="btn-primary">
+            <a href={`tel:${siteConfig.contact.phone}`} className="btn-primary">
               전화상담
             </a>
             <a
-              href={FIRM_CONFIG.kakao}
+              href={siteConfig.contact.kakao}
               target="_blank"
               rel="noopener noreferrer"
               className="btn-secondary"
@@ -74,16 +94,32 @@ export default function HeroSection() {
               카톡상담
             </a>
           </div>
-          <div className="mt-8 grid grid-cols-2 gap-6">
-            <div>
-              <div className="text-3xl md:text-4xl font-bold">
-                {wins.toLocaleString()}+
+
+          {/* 4개 통계 카운터 */}
+          <div className="mt-8 grid grid-cols-2 md:grid-cols-4 gap-4">
+            <div className="text-center">
+              <div className="text-2xl md:text-3xl font-bold text-legend-gold">
+                {experience}년
               </div>
-              <div>누적 승소</div>
+              <div className="text-sm opacity-90">경력</div>
             </div>
-            <div>
-              <div className="text-3xl md:text-4xl font-bold">{rate}%</div>
-              <div>승소율</div>
+            <div className="text-center">
+              <div className="text-2xl md:text-3xl font-bold text-legend-gold">
+                {cases.toLocaleString()}+
+              </div>
+              <div className="text-sm opacity-90">처리사건</div>
+            </div>
+            <div className="text-center">
+              <div className="text-2xl md:text-3xl font-bold text-legend-gold">
+                {clients.toLocaleString()}+
+              </div>
+              <div className="text-sm opacity-90">고객 수</div>
+            </div>
+            <div className="text-center">
+              <div className="text-2xl md:text-3xl font-bold text-legend-gold">
+                {successRate}%
+              </div>
+              <div className="text-sm opacity-90">성공률</div>
             </div>
           </div>
         </div>
