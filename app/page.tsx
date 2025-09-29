@@ -3,6 +3,8 @@ import ServicesSection from '../components/sections/ServicesSection';
 import LawyersSection from '../components/sections/LawyersSection';
 import DebugBuild from '../components/DebugBuild';
 
+export const revalidate = 60;
+
 export default function Home() {
   return (
     <>
