@@ -6,4 +6,4 @@
   address: "서울 강남구 테헤란로 152",
   kakao: "https://pf.kakao.com/_xXXXX",
   siteUrl: "https://template-lawfirm.vercel.app"
-} as const;
+};

@@ -1,42 +1,69 @@
-﻿"use client";
-import { useRef, useState } from "react";
-import emailjs from "@emailjs/browser";
+"use client";
 
-export default function ContactForm(){
-  const formRef = useRef<HTMLFormElement>(null);
-  const [loading,setLoading] = useState(false);
-
-  async function send(e:React.FormEvent){
-    e.preventDefault(); if(!formRef.current) return;
-    setLoading(true);
-    try{
-      if(process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID){
-        await emailjs.sendForm(
-          process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID!,
-          process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID!,
-          formRef.current!,
-          process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY!
-        );
-      } else {
-        await fetch("/api/consultation", { method:"POST", body: new FormData(formRef.current!) });
-      }
-      alert("상담 요청이 전송되었습니다."); formRef.current!.reset();
-    }catch{ alert("전송 실패. 잠시 후 다시 시도해주세요."); }
-    finally{ setLoading(false); }
-  }
-
+/**
+ * ContactForm is a simple contact form that posts submissions to
+ * Formspree.  Replace the form action URL with your own Formspree
+ * endpoint or another service such as Resend.  This component is
+ * separate from the consultation form which posts to the local API.
+ */
+export default function ContactForm() {
   return (
-    <form ref={formRef} onSubmit={send} className="space-y-3">
-      <input name="name" required placeholder="성함" className="border p-3 rounded w-full" />
-      <input name="phone" required placeholder="연락처" className="border p-3 rounded w-full" />
-      <input name="email" type="email" placeholder="이메일" className="border p-3 rounded w-full" />
-      <select name="practiceArea" className="border p-3 rounded w-full">
-        <option value="">상담 분야 선택</option>
-        <option value="corp">기업법무</option><option value="criminal">형사</option>
-        <option value="family">가사/상속</option><option value="realestate">부동산</option>
-      </select>
-      <textarea name="message" placeholder="상담 내용" className="border p-3 rounded w-full" />
-      <button disabled={loading} className="btn-primary w-full">{loading ? "전송 중..." : "상담 요청"}</button>
+    <form
+      action="https://formspree.io/f/your-form-id" // TODO: replace with real Formspree ID
+      method="POST"
+      className="space-y-3"
+    >
+      <div>
+        <label htmlFor="name" className="block mb-1">
+          성함
+        </label>
+        <input
+          name="name"
+          id="name"
+          required
+          placeholder="성함"
+          className="w-full p-2 border rounded-md dark:bg-gray-800"
+        />
+      </div>
+      <div>
+        <label htmlFor="phone" className="block mb-1">
+          연락처
+        </label>
+        <input
+          name="phone"
+          id="phone"
+          required
+          placeholder="전화번호"
+          className="w-full p-2 border rounded-md dark:bg-gray-800"
+        />
+      </div>
+      <div>
+        <label htmlFor="email" className="block mb-1">
+          이메일
+        </label>
+        <input
+          type="email"
+          name="email"
+          id="email"
+          placeholder="you@example.com"
+          className="w-full p-2 border rounded-md dark:bg-gray-800"
+        />
+      </div>
+      <div>
+        <label htmlFor="message" className="block mb-1">
+          문의 내용
+        </label>
+        <textarea
+          name="message"
+          id="message"
+          rows={4}
+          placeholder="문의 내용을 적어주세요."
+          className="w-full p-2 border rounded-md dark:bg-gray-800"
+        />
+      </div>
+      <button type="submit" className="btn-primary w-full">
+        상담 요청
+      </button>
     </form>
   );
 }

@@ -1,14 +1,14 @@
-﻿import "./globals.css";
+﻿import "../app/globals.css";
 import type { Metadata } from "next";
 import Navigation from "../components/ui/Navigation";
 import { FIRM_CONFIG } from "../lib/config";
 
 export const metadata: Metadata = {
-  title: `${FIRM_CONFIG.name} - ${FIRM_CONFIG.tagline}`,
-  description: "법무법인 홈페이지 제작 전문 | 7일 완성 | 390만원",
+  title: "QUANTUM 법무법인 - 법률, 그 이상의 가치",
+  description: "기업법무형사가사부동산 전문",
   metadataBase: new URL(FIRM_CONFIG.siteUrl),
   openGraph: {
-    title: `${FIRM_CONFIG.name} - ${FIRM_CONFIG.tagline}`,
+    title: "QUANTUM 법무법인 - 법률, 그 이상의 가치",
     description: "기업법무형사가사부동산 전문",
     url: FIRM_CONFIG.siteUrl,
     images: ["/og-image.jpg"],
@@ -24,14 +24,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     "name": FIRM_CONFIG.name,
     "url": FIRM_CONFIG.siteUrl,
     "telephone": FIRM_CONFIG.phone,
-    "address": {
-      "@type": "PostalAddress",
-      "streetAddress": FIRM_CONFIG.address,
-      "addressLocality": "서울",
-      "addressCountry": "KR"
-    }
+    "address": { "@type": "PostalAddress", "streetAddress": FIRM_CONFIG.address, "addressLocality": "서울", "addressCountry": "KR" }
   };
-
   return (
     <html lang="ko" suppressHydrationWarning>
       <body>
