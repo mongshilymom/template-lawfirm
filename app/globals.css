@@ -2,13 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Load Noto Sans KR font for body text.  The package is added
- * as a dependency in package.json.  Playfair Display and Inter
- * remain as heading/body fonts via tailwind config. */
-@import '@fontsource/noto-sans-kr/300.css';
-@import '@fontsource/noto-sans-kr/400.css';
-@import '@fontsource/noto-sans-kr/700.css';
-
 /*
  * Define CSS custom properties (design tokens) for core colours.  These
  * variables can be used throughout the site to ensure consistent
@@ -27,7 +20,7 @@ html {
 }
 
 body {
-  @apply bg-white dark:bg-legend-black text-gray-900 dark:text-legend-platinum font-body;
+  @apply bg-white dark:bg-legend-black text-gray-900 dark:text-legend-platinum font-korean;
 }
 
 a {

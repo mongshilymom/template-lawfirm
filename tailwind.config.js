@@ -17,8 +17,9 @@ module.exports = {
         }
       },
       fontFamily: {
-        heading: ['Playfair Display', 'serif'],
-        body: ['Inter', 'sans-serif']
+        heading: ['var(--font-playfair)', 'Playfair Display', 'serif'],
+        body: ['var(--font-inter)', 'Inter', 'sans-serif'],
+        korean: ['var(--font-noto-sans-kr)', 'Noto Sans KR', 'sans-serif']
       }
     }
   },

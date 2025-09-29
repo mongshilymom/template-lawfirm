@@ -2,6 +2,7 @@ import '../app/globals.css';
 import DarkModeToggle from '../components/DarkModeToggle';
 import Navigation from '../components/ui/Navigation';
 import { siteConfig } from '../lib/siteConfig';
+import { inter, playfairDisplay, notoSansKr } from '../lib/fonts';
 
 /**
  * 사이트 전역 메타데이터 설정
@@ -60,7 +61,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           }}
         />
       </head>
-      <body className="relative">
+      <body className={`relative ${inter.variable} ${playfairDisplay.variable} ${notoSansKr.variable}`}>
         {/* Global navigation */}
         <Navigation />
         {/* Page content offset by navigation height */}
