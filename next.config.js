@@ -1,13 +1,8 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
-  images: {
-    formats: ['image/webp', 'image/avif'],
-    deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840],
-    imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
-    minimumCacheTTL: 60 * 60 * 24 * 365, // 1 year
-  },
-  swcMinify: true,
+  poweredByHeader: false
+  // App Router는 Next 14에서 기본이므로 experimental.appDir 불필요
 };
 
 module.exports = nextConfig;
