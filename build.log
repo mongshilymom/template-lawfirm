@@ -1,0 +1,39 @@
+
+> template-lawfirm@1.0.0 build
+> next build
+
+[Browserslist] Could not parse C:\Users\mongshilymom\dev\letyou\templates\package.json. Ignoring it.
+  ▲ Next.js 14.2.33
+  - Environments: .env.local
+
+   Creating an optimized production build ...
+[Browserslist] Could not parse C:\Users\mongshilymom\dev\letyou\templates\package.json. Ignoring it.
+Failed to compile.
+
+./app/app/calculator/criminal/page.tsx
+Module not found: Can't resolve '../../../components/calculators/CriminalCalculator'
+
+https://nextjs.org/docs/messages/module-not-found
+
+./app/app/calculator/divorce/page.tsx
+Module not found: Can't resolve '../../../components/calculators/DivorceCalculator'
+
+https://nextjs.org/docs/messages/module-not-found
+
+./app/app/calculator/inheritance/page.tsx
+Module not found: Can't resolve '../../../components/calculators/InheritanceCalculator'
+
+https://nextjs.org/docs/messages/module-not-found
+
+./app/app/consultation/page.tsx
+Module not found: Can't resolve '../../components/ContactForm'
+
+https://nextjs.org/docs/messages/module-not-found
+
+./app/app/lawyers/page.tsx
+Module not found: Can't resolve '../../components/LawyerCard'
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+> Build failed because of webpack errors
