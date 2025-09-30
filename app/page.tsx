@@ -2,10 +2,14 @@ import HeroSection from '../components/sections/HeroSection';
 import ServicesSection from '../components/sections/ServicesSection';
 import LawyersSection from '../components/sections/LawyersSection';
 import DebugBuild from '../components/DebugBuild';
+import { sanityFetch } from '@/lib/sanity.fetch';
+import { qLawyers } from '@/lib/sanity.queries';
 
 export const revalidate = 60;
 
-export default function Home() {
+export default async function Home() {
+  const lawyers = await sanityFetch<any[]>(qLawyers, {}, { tags: ['lawyers'] });
+
   return (
     <>
       <main className="min-h-screen">
@@ -16,7 +20,7 @@ export default function Home() {
         <ServicesSection />
 
         {/* Lawyers Section - 4명 변호사 프로필 */}
-        <LawyersSection />
+        <LawyersSection lawyers={lawyers} />
 
         {/* 상담 문의 섹션 */}
         <section className="bg-legend-platinum/10 dark:bg-gray-900/50 py-16">
